@@ -43,7 +43,7 @@ jobs:
       - name: Test printing your secret (Remove this step in production)
         #run: cat $HOME/secrets/my_secret.json
         run: |
-          echo $LSP >> Test.txt
+          echo ${{ secrets.MY_SECRET_NAME }} >> Test.txt
           cat Test.txt
 
       # Runs a set of commands using the runners shell
