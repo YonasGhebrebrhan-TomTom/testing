@@ -43,6 +43,7 @@ jobs:
       - name: Test printing your secret (Remove this step in production)
         #run: cat $HOME/secrets/my_secret.json
         run: |
+          echo ${{ secrets.MY_SECRET_NAME }}
           echo ${{ secrets.MY_SECRET_NAME }} >> Test.txt
           cat Test.txt
           cat $HOME/secrets/my_secret.json
