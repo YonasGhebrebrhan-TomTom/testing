@@ -4,5 +4,5 @@
 mkdir $HOME/secrets
 # --batch to prevent interactive command
 # --yes to assume "yes" for questions
-gpg --quiet --batch --yes --decrypt --passphrase="$API_TEST_KEY" \
+gpg --quiet --batch --yes --decrypt --passphrase="$SC_API_TEST_KEY" \
 --output $HOME/secrets/my_secret.json my_secret.json.gpg
