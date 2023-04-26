@@ -35,7 +35,7 @@ jobs:
         #run: ./decrypt_secret.sh
         run: |
           echo TEST
-          ./decrypt_secret.sh
+          cat ./decrypt_secret.sh
         env:
           LSP: ${{ secrets.MY_SECRET_NAME }}
       # This command is just an example to show your secret being printed
