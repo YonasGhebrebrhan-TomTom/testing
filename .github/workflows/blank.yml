@@ -1,56 +1,68 @@
-# This is a basic workflow to help you get started with Actions
+# # This is a basic workflow to help you get started with Actions
 
-name: CI
+# name: CI
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# # Controls when the workflow will run
+# on:
+#   # Triggers the workflow on push or pull request events but only for the "main" branch
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs:
+#   # This workflow contains a single job called "build"
+#   build:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
+
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v3
+
+#       # Runs a single command using the runners shell
+#       - name: Run a one-line script
+#         run: |
+#           echo TEST
+          
+#       - uses: actions/checkout@v3
+#       - name: Decrypt large secret
+#         #run: ./decrypt_secret.sh
+#         run: |
+#           echo TEST
+#           ./decrypt_secret.sh
+#         env:
+#           LSP: ${{ secrets.MY_SECRET_NAME }}
+#       # This command is just an example to show your secret being printed
+#       # Ensure you remove any print statements of your secrets. GitHub does
+#       # not hide secrets that use this workaround.
+#       - name: Test printing your secret (Remove this step in production)
+#         #run: cat $HOME/secrets/my_secret.json
+#         run: |
+#           echo ${{ secrets.MY_SECRET_NAME }}
+#           echo ${{ secrets.MY_SECRET_NAME }} >> Test.txt
+#           cat Test.txt
+#           ls -la ./
+          
+#       # Runs a set of commands using the runners shell
+#       - name: Run a multi-line script
+#         run: |
+#           echo Add other actions to build,
+#           echo test, and deploy your project.
+name: Run a step if a secret has been set
+on: push
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  my-jobname:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      super_secret: ${{ secrets.MY_SECRET_NAME }}
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: |
-          echo TEST
-          
-      - uses: actions/checkout@v3
-      - name: Decrypt large secret
-        #run: ./decrypt_secret.sh
-        run: |
-          echo TEST
-          ./decrypt_secret.sh
-        env:
-          LSP: ${{ secrets.MY_SECRET_NAME }}
-      # This command is just an example to show your secret being printed
-      # Ensure you remove any print statements of your secrets. GitHub does
-      # not hide secrets that use this workaround.
-      - name: Test printing your secret (Remove this step in production)
-        #run: cat $HOME/secrets/my_secret.json
-        run: |
-          echo ${{ secrets.MY_SECRET_NAME }}
-          echo ${{ secrets.MY_SECRET_NAME }} >> Test.txt
-          cat Test.txt
-          ls -la ./
-          
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - if: ${{ env.super_secret != '' }}
+        run: echo 'This step will only run if the secret has a value set.'
+      - if: ${{ env.super_secret == '' }}
+        run: echo 'This step will only run if the secret does not have a value set.'
