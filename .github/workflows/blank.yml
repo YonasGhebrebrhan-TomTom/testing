@@ -64,8 +64,8 @@ jobs:
     steps:
       - if: ${{ env.super_secret != '' }}
         run: echo 'This step will only run if the secret has a value set.'
-      - if: ${{ env.super_secret == 'MY_SECRET_VALUE33' }}
           ./decrypt_secret.sh
+      - if: ${{ env.super_secret == 'MY_SECRET_VALUE33' }}
         run: echo 'This step will only run if the secret does have same value set.'
       - if: ${{ env.super_secret != 'MY_SECRET_VALUE333' }}
         run: echo 'This step will only run if the secret does have NOT same value set.'
