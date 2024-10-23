@@ -1,4 +1,4 @@
-name: Simple Job Example
+name: Simple Job Example with Boolean
 
 on:
   workflow_dispatch:
@@ -11,6 +11,11 @@ on:
         description: 'Second input'
         required: true
         default: 'default_value2'
+      run_extra:
+        description: 'Run additional step?'
+        required: true
+        default: false
+        type: boolean
 
 jobs:
   print-job:
@@ -20,3 +25,9 @@ jobs:
         run: |
           echo "Input 1: ${{ github.event.inputs.input1 }}"
           echo "Input 2: ${{ github.event.inputs.input2 }}"
+          echo "Run extra step: ${{ github.event.inputs.run_extra }}"
+
+      - name: Run Extra Step
+        if: ${{ github.event.inputs.run_extra }}
+        run: |
+          echo "Running the extra step!"
