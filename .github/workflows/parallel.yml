@@ -16,9 +16,6 @@ on:
         required: true
         default: false
         type: boolean
-  push:
-    branches:
-      - main
 
   push:
     branches:
@@ -45,4 +42,3 @@ jobs:
         if: ${{ github.event.inputs.run_extra }}
         run: |
           echo "Running the extra step!"
-
