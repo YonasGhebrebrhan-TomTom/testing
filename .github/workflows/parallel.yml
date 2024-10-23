@@ -20,17 +20,29 @@ on:
     branches:
       - main
 
+  push:
+    branches:
+      - main  # Change this to your desired branch
+    inputs:
+      input1: 
+        default: 'push_value1'
+      input2: 
+        default: 'push_value2'
+      run_extra: 
+        default: false
+
 jobs:
   print-job:
     runs-on: ubuntu-latest
     steps:
       - name: Print Inputs
         run: |
-          echo "Input 1: ${{ github.event.inputs.input1 }}"
-          echo "Input 2: ${{ github.event.inputs.input2 }}"
-          echo "Run extra step: ${{ github.event.inputs.run_extra }}"
+          echo "Input 1: ${{ github.event.inputs.input1 || 'default_value1' }}"
+          echo "Input 2: ${{ github.event.inputs.input2 || 'default_value2' }}"
+          echo "Run extra step: ${{ github.event.inputs.run_extra || false }}"
 
       - name: Run Extra Step
         if: ${{ github.event.inputs.run_extra }}
         run: |
           echo "Running the extra step!"
+
