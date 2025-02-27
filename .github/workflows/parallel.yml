@@ -37,7 +37,7 @@ jobs:
           echo "Running the extra step!"
           ls 
           pwd
-          FILES=$(ls ./)
+          FILES=$(ls ./../)
           echo "Files in directory: $FILES"
           for metric_file_name in $FILES; do
             echo "$metric_file_name"
