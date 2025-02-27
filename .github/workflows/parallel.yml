@@ -42,3 +42,26 @@ jobs:
         if: ${{ github.event.inputs.run_extra }}
         run: |
           echo "Running the extra step!"
+          name: Manual Trigger Workflow
+
+on:
+  repository_dispatch:
+    types: [manual_trigger]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Parameters
+        run: |
+          echo "Parameter 1: ${{ github.event.client_payload.parameter1 }}"
+          echo "Parameter 2: ${{ github.event.client_payload.parameter2 }}"
+          echo "GitHub Ref: ${{ github.ref }}"
+          
+          FILES=$(ls ./)
+          echo "Files in directory: $FILES"
+          for metric_file_name in $FILES; do
+            echo "$metric_file_name"
+            metric_name=$(basename "$metric_file_name" .txt)
+            echo "$metric_name"
+          done
