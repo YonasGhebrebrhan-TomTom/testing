@@ -39,7 +39,7 @@ jobs:
           echo "Run extra step: ${{ github.event.inputs.run_extra || false }}"
 
       - name: Run Extra Step
-        if: ${{ github.event.inputs.run_extra }}
+        # if: ${{ github.event.inputs.run_extra }}
         run: |
           echo "Running the extra step!"
           name: Manual Trigger Workflow
